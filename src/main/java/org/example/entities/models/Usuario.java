@@ -1,4 +1,4 @@
-package org.example.models;
+package org.example.entities.models;
 
 import org.bson.types.ObjectId;
 
