@@ -1,0 +1,185 @@
+use ecoapp;
+
+db.createCollection("usuarios", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["username", "password", "email", "nombre"],
+            properties: {
+                username: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                password: {
+                    bsonType: "string",
+                    minimum: 10,
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                email: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                nombre: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                apellido: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+            }
+        }
+    }
+});
+
+
+db.createCollection("posts", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["foto", "descripcion", "id_usuario"],
+            properties: {
+                foto: {
+                    bsonType: "object",
+                    required: ["nombre", "tipo", "url"],
+                    properties: {
+                        nombre: {
+                            bsonType: "string",
+                            description: "Debe ser una cadena y es obligatorio"
+                        },
+                        tipo: {
+                            bsonType: "string",
+                            description: "Debe ser una cadena y es obligatorio"
+                        },
+                        url: {
+                            bsonType: "string",
+                            description: "Debe ser una cadena y es obligatorio"
+                        }
+                    }
+                },
+                descripcion: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                id_usuario: {
+                    bsonType: "objectId",
+                    description: "Debe ser un ObjectId y es obligatorio"
+                }
+            }
+        }
+    }
+});
+
+
+db.createCollection("comentarios", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_usuario", "id_post", "comentario"],
+            properties: {
+                comentario: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                id_usuario: {
+                    bsonType: "objectId",
+                    description: "Debe ser un ObjectId y es obligatorio"
+                },
+                id_post: {
+                    bsonType: "objectId",
+                    description: "Debe ser un ObjectId y es obligatorio"
+                }
+            }
+        }
+    }
+});
+
+db.createCollection("perfiles", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_usuario", "nombre", "descripcion", "tipo", "foto"],
+            properties: {
+                id_usuario: {
+                    bsonType: "objectId",
+                    description: "Debe ser un ObjectId y es obligatorio"
+                },
+                nombre: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                descripcion: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                tipo: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                foto: {
+                    bsonType: "object",
+                    required: ["nombre", "tipo", "url"],
+                    properties: {
+                        nombre: {
+                            bsonType: "string",
+                            description: "Debe ser una cadena y es obligatorio"
+                        },
+                        tipo: {
+                            bsonType: "string",
+                            description: "Debe ser una cadena y es obligatorio"
+                        },
+                        url: {
+                            bsonType: "string",
+                            description: "Debe ser una cadena y es obligatorio"
+                        }
+                    }
+                }
+            }
+        }
+    }
+});
+
+db.createCollection("mapa", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id_perfil", "nombre", "descripcion", "marcador"],
+            properties: {
+                id_perfil: {
+                    bsonType: "objectId",
+                    description: "Debe ser un ObjectId y es obligatorio"
+                },
+                nombre: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                descripcion: {
+                    bsonType: "string",
+                    description: "Debe ser una cadena y es obligatorio"
+                },
+                marcador: {
+                    bsonType: "object",
+                    required: ["type", "coordinates"],
+                    properties: {
+                        type: {
+                            enum: ["Point"],
+                            description: "Debe ser 'Point'"
+                        },
+                        coordinates: {
+                            bsonType: "array",
+                            minItems: 2,
+                            maxItems: 2,
+                            items: {
+                                bsonType: "double"
+                            },
+                            description: "Debe ser un array de longitud [longitud, latitud]"
+                        }
+                    }
+                }
+            }
+        }
+    }
+});
+
+
+
